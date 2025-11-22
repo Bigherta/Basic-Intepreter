@@ -8,7 +8,8 @@
 class Statement;
 class Expression;
 
-class ParsedLine {
+class ParsedLine
+{
 private:
     std::optional<int> line_number_;
     Statement *statement_;
@@ -24,7 +25,8 @@ public:
     Statement *fetchStatement();
 };
 
-class Parser {
+class Parser
+{
 public:
     ParsedLine parseLine(TokenStream &tokens, const std::string &originLine) const;
 

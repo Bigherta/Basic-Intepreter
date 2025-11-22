@@ -9,23 +9,29 @@ int ConstExpression::evaluate(const VarState &) const { return value_; } // 常�
 
 VariableExpression::VariableExpression(std::string name) : name_(std::move(name)) {} // 移动构造函数
 
-int VariableExpression::evaluate(const VarState &state) const {
+int VariableExpression::evaluate(const VarState &state) const
+{
     return state.getValue(name_); // 返回变量名对应的变量值
 }
 
 CompoundExpression::CompoundExpression(Expression *left, char op, Expression *right) :
-    left_(left), right_(right), op_(op) {} // 复合表达式的构造函数
+    left_(left), right_(right), op_(op)
+{
+} // 复合表达式的构造函数
 
-CompoundExpression::~CompoundExpression() {
+CompoundExpression::~CompoundExpression()
+{
     delete left_;
     delete right_;
 } // 复合表达式的析构
 
-int CompoundExpression::evaluate(const VarState &state) const {
+int CompoundExpression::evaluate(const VarState &state) const
+{
     int lhs = left_->evaluate(state);
     int rhs = right_->evaluate(state);
 
-    switch (op_) {
+    switch (op_)
+    {
         case '+':
             return lhs + rhs;
         case '-':
@@ -33,7 +39,8 @@ int CompoundExpression::evaluate(const VarState &state) const {
         case '*':
             return lhs * rhs;
         case '/':
-            if (rhs == 0) {
+            if (rhs == 0)
+            {
                 throw BasicError("DIVIDE BY ZERO");
             }
             return lhs / rhs;

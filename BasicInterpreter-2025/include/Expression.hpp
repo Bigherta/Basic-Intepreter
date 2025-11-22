@@ -5,13 +5,15 @@
 
 class VarState;
 
-class Expression {
+class Expression
+{
 public:
     virtual ~Expression() = default;
     virtual int evaluate(const VarState &state) const = 0;
 };
 
-class ConstExpression : public Expression {
+class ConstExpression : public Expression
+{
 public:
     explicit ConstExpression(int value);
     ~ConstExpression() = default;
@@ -21,7 +23,8 @@ private:
     int value_; // 记录常量值
 };
 
-class VariableExpression : public Expression {
+class VariableExpression : public Expression
+{
 public:
     explicit VariableExpression(std::string name);
     ~VariableExpression() = default;
@@ -31,7 +34,8 @@ private:
     std::string name_;
 };
 
-class CompoundExpression : public Expression {
+class CompoundExpression : public Expression
+{
 public:
     CompoundExpression(Expression *left, char op, Expression *right);
     ~CompoundExpression();

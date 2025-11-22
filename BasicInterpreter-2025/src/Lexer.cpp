@@ -13,33 +13,41 @@ const std::unordered_map<std::string, TokenType> TABLE = {
         {"RUN", TokenType::RUN},  {"LIST", TokenType::LIST},   {"CLEAR", TokenType::CLEAR}, {"QUIT", TokenType::QUIT},
         {"HELP", TokenType::HELP}};
 
-bool isOverflow(const std::string &digits, bool negative) {
+bool isOverflow(const std::string &digits, bool negative)
+{
     constexpr long long max_limit = std::numeric_limits<int>::max();
     return negative ? std::stol(digits) > max_limit : std::stol(digits) > max_limit + 1;
 }
 
-TokenStream Lexer::tokenize(const std::string &line) const {
+TokenStream Lexer::tokenize(const std::string &line) const
+{
     std::vector<Token> tokens;
     int column = 0;
-    while (column < line.size()) {
+    while (column < line.size())
+    {
         char ch = line[column];
-        if (std::isspace(static_cast<int>(ch))) {
+        if (std::isspace(static_cast<int>(ch)))
+        {
             ++column;
             continue;
         }
         // 如果ch是字母
-        if (isLetterChar(ch)) {
+        if (isLetterChar(ch))
+        {
             int start = column;
             ++column;
-            while (column < line.size() && isLetterChar(line[column])) {
+            while (column < line.size() && isLetterChar(line[column]))
+            {
                 ++column;
             }
             std::string text = line.substr(start, column - start); // 提取单词
             TokenType type = matchKeyword(text); // 分析词块
-            switch (type) {
+            switch (type)
+            {
                 case TokenType::REM:
                     tokens.push_back(Token{TokenType::REM, text, column});
-                    if (column < line.size()) {
+                    if (column < line.size())
+                    {
                         std::string comment = line.substr(column);
                         tokens.push_back(Token{TokenType::REMINFO, comment, column + 1});
                     }
@@ -53,9 +61,11 @@ TokenStream Lexer::tokenize(const std::string &line) const {
             continue;
         }
         // 如果ch是数字
-        if (isNumberChar(ch)) {
+        if (isNumberChar(ch))
+        {
             int start = column;
-            while (column < line.size() && isNumberChar(line[column])) {
+            while (column < line.size() && isNumberChar(line[column]))
+            {
                 ++column;
             }
             std::string text = line.substr(start, column - start);
@@ -64,7 +74,8 @@ TokenStream Lexer::tokenize(const std::string &line) const {
         }
 
         TokenType symbolType = TokenType::UNKNOWN;
-        switch (ch) {
+        switch (ch)
+        {
             case '+':
                 symbolType = TokenType::PLUS;
                 break;
@@ -98,7 +109,8 @@ TokenStream Lexer::tokenize(const std::string &line) const {
             default:
                 break;
         }
-        if (symbolType != TokenType::UNKNOWN) {
+        if (symbolType != TokenType::UNKNOWN)
+        {
             tokens.push_back(Token{symbolType, std::string(1, ch), column});
             ++column;
             continue;
@@ -114,9 +126,11 @@ bool Lexer::isLetterChar(char ch) noexcept { return std::isalpha(static_cast<uns
 
 bool Lexer::isNumberChar(char ch) noexcept { return std::isalnum(static_cast<unsigned char>(ch)) || ch == '_'; }
 
-TokenType Lexer::matchKeyword(const std::string &text) noexcept {
+TokenType Lexer::matchKeyword(const std::string &text) noexcept
+{
     auto it = TABLE.find(text);
-    if (it != TABLE.end()) {
+    if (it != TABLE.end())
+    {
         return it->second;
     }
     return TokenType::UNKNOWN;

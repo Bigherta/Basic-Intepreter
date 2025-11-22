@@ -5,7 +5,8 @@
 #include <utility>
 #include <vector>
 
-class VarState {
+class VarState
+{
 public:
     void setValue(const std::string &name, int value); // 赋值
     int getValue(const std::string &name) const; // 获取值

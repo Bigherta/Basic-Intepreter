@@ -8,7 +8,8 @@
 class Program;
 class VarState;
 
-class Statement {
+class Statement
+{
 public:
     explicit Statement(std::string source);
     virtual ~Statement() = default;
@@ -23,5 +24,9 @@ private:
 
 // TODO: Other statement types derived from Statement, e.g., GOTOStatement,
 // LetStatement, etc.
-class GOTOstatement : public Statement {};
-class LetStatement : public Statement {};
+class GOTOstatement : public Statement
+{
+};
+class LetStatement : public Statement
+{
+};

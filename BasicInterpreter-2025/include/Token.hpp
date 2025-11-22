@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 
-enum class TokenType {
+enum class TokenType
+{
     // 关键字
     LET, // 赋值
     PRINT, // 输出
@@ -37,13 +38,15 @@ enum class TokenType {
     UNKNOWN
 }; // 枚举指令类型
 
-struct Token {
+struct Token
+{
     TokenType type{TokenType::UNKNOWN};
     std::string text{};
     int column{0};
 };
 
-class TokenStream {
+class TokenStream
+{
 public:
     TokenStream() = default; // 默认构造
     explicit TokenStream(std::vector<Token> &&tokens);

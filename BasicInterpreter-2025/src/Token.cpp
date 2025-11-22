@@ -2,16 +2,20 @@
 
 TokenStream::TokenStream(std::vector<Token> &&tokens) : tokens_(std::move(tokens)), cursor_(0) {}
 
-const Token *TokenStream::peek() const {
-    if (cursor_ >= tokens_.size()) {
+const Token *TokenStream::peek() const
+{
+    if (cursor_ >= tokens_.size())
+    {
         return nullptr;
     }
     return &tokens_[cursor_];
 } // 查看当前token并返回指针
 
-const Token *TokenStream::get() {
+const Token *TokenStream::get()
+{
     const Token *current = peek();
-    if (current != nullptr) {
+    if (current != nullptr)
+    {
         ++cursor_;
     }
     return current;
