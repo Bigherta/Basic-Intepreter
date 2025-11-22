@@ -18,7 +18,7 @@ void Program::run()
     {
         index = recorder_.nextLine(index);
         const Statement *executable = recorder_.get(index);
-        //to do (判断不同派生类并构造对应引用进行执行)
+        executable->execute(vars_, *this);
     }
 }
 
@@ -33,9 +33,9 @@ void Program::clear()
     vars_.clear();
 }
 
-void execute(Statement *stmt)
+void Program::execute(Statement *stmt)
 {
-    //to do 
+    stmt->execute(vars_, (*this));
 }
 
 int Program::getPC() const noexcept

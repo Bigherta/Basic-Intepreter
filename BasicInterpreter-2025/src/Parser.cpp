@@ -109,13 +109,17 @@ Statement *Parser::parseLet(TokenStream &tokens, const std::string &originLine) 
 
     auto expr = parseExpression(tokens);
     // TODO: create a corresponding stmt and return it.
-}
+    LetStatement *temp = new LetStatement(originLine,expr);
+    return temp;
+}//finished
 
 Statement *Parser::parsePrint(TokenStream &tokens, const std::string &originLine) const
 {
-    auto expr = parseExpression(tokens);
+    auto expr = parseExpression(tokens);//解析表达式
     // TODO: create a corresponding stmt and return it.
-}
+    PrintStatement *temp = new PrintStatement(originLine, expr);
+    return temp;
+}//finished
 
 Statement *Parser::parseInput(TokenStream &tokens, const std::string &originLine) const
 {
@@ -132,7 +136,9 @@ Statement *Parser::parseInput(TokenStream &tokens, const std::string &originLine
 
     std::string varName = varToken->text;
     // TODO: create a corresponding stmt and return it.
-}
+    InputStatement *temp = new InputStatement(originLine, varName);
+    return temp;
+}//finished
 
 Statement *Parser::parseGoto(TokenStream &tokens, const std::string &originLine) const
 {
@@ -149,8 +155,9 @@ Statement *Parser::parseGoto(TokenStream &tokens, const std::string &originLine)
 
     int targetLine = parseLiteral(lineToken);
     // TODO: create a corresponding stmt and return it.
-    GOTOstatement *temp = new GOTOstatement(originLine, targetLine);
-}
+    GOTOstatement *temp = new GOTOstatement(originLine,targetLine);
+    return temp;
+}//finished
 
 Statement *Parser::parseIf(TokenStream &tokens, const std::string &originLine) const
 {
@@ -201,9 +208,11 @@ Statement *Parser::parseIf(TokenStream &tokens, const std::string &originLine) c
         throw BasicError("SYNTAX ERROR");
     }
 
-    int targetLine = parseLiteral(lineToken);
+    int targetLine = parseLiteral(lineToken);//GOTO的目标行
 
     // TODO: create a corresponding stmt and return it.
+    IfStatement *temp = new IfStatement(originLine,targetLine,leftExpr,rightExpr,op);
+    return temp;
 }
 
 Statement *Parser::parseRem(TokenStream &tokens, const std::string &originLine) const
@@ -214,11 +223,15 @@ Statement *Parser::parseRem(TokenStream &tokens, const std::string &originLine) 
         throw BasicError("SYNTAX ERROR");
     }
     // TODO: create a corresponding stmt and return it.
+    RemStatement *temp = new RemStatement(originLine);
+    return temp;
 }
 
 Statement *Parser::parseEnd(TokenStream &tokens, const std::string &originLine) const
 {
     // TODO: create a corresponding stmt and return it.
+    EndStatement *temp = new EndStatement(originLine);
+    return temp;
 }
 
 Expression *Parser::parseExpression(TokenStream &tokens) const { return parseExpression(tokens, 0); }

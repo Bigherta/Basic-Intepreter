@@ -14,24 +14,72 @@ public:
 
     virtual void execute(VarState &state, Program &program) const = 0;
 
-    const std::string &text() const noexcept; //返回该行语句
+    const std::string &text() const noexcept; // 返回该行语句
 
-private:
-    std::string source_;//储存一行语句
+protected:
+    std::string source_; // 储存一行语句
 };
 
 // TODO: Other statement types derived from Statement, e.g., GOTOStatement,
 // LetStatement, etc.
 class GOTOstatement : public Statement
 {
-    private:
+private:
     int gotoPC;
-    public:
-    GOTOstatement(std::string, int);
-    void execute(VarState &state, Program &program);
+
+public:
+    GOTOstatement(std::string source, int targetline);
+    void execute(VarState &state, Program &program) const override;
 };
 class PrintStatement : public Statement
 {
+private:
+    Expression *exp;
+
+public:
+    PrintStatement(std::string source, Expression *expression);
+    void execute(VarState &state, Program &program) const override;
+};
+
+class LetStatement : public Statement
+{
+private:
+    Expression *exp;
+
+public:
+    LetStatement(std::string source, Expression *expression);
+    void execute(VarState &state, Program &program) const override;
+};
+
+class InputStatement : public Statement
+{
+    private:
+    std::string var_name;
     public:
-    void execute(VarState &state, Program &program);
+    InputStatement(std::string source, std::string name);
+    void execute(VarState &state, Program &program) const override;
+};
+
+class RemStatement : public Statement
+{
+    public:
+    RemStatement(std::string source);
+    void execute(VarState &state, Program &program) const override;
+};
+
+class EndStatement : public Statement
+{
+    public:
+    EndStatement(std::string source);
+    void execute(VarState &state, Program &program) const override;
+};
+
+class IfStatement : public GOTOstatement
+{
+    private:
+    Expression *left, *right;
+    char op;
+    public:
+    IfStatement(std::string source, int target, Expression *l, Expression *r, char o);
+    void execute(VarState &state, Program &program) const override;
 };

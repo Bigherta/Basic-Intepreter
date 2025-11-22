@@ -9,7 +9,7 @@ class Expression
 {
 public:
     virtual ~Expression() = default;
-    virtual int evaluate(const VarState &state) const = 0;
+    virtual int evaluate(const VarState &state) const = 0; //返回值的纯虚函数
 };
 
 class ConstExpression : public Expression
