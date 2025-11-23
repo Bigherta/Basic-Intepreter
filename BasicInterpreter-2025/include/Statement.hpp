@@ -20,8 +20,6 @@ protected:
     std::string source_; // 储存一行语句
 };
 
-// TODO: Other statement types derived from Statement, e.g., GOTOStatement,
-// LetStatement, etc.
 class GOTOstatement : public Statement
 {
 private:
@@ -53,33 +51,35 @@ public:
 
 class InputStatement : public Statement
 {
-    private:
+private:
     std::string var_name;
-    public:
+
+public:
     InputStatement(std::string source, std::string name);
     void execute(VarState &state, Program &program) const override;
 };
 
 class RemStatement : public Statement
 {
-    public:
+public:
     RemStatement(std::string source);
     void execute(VarState &state, Program &program) const override;
 };
 
 class EndStatement : public Statement
 {
-    public:
+public:
     EndStatement(std::string source);
     void execute(VarState &state, Program &program) const override;
 };
 
 class IfStatement : public GOTOstatement
 {
-    private:
+private:
     Expression *left, *right;
     char op;
-    public:
+
+public:
     IfStatement(std::string source, int target, Expression *l, Expression *r, char o);
     void execute(VarState &state, Program &program) const override;
 };

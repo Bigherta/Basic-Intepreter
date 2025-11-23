@@ -1,15 +1,9 @@
 // TODO: Imply interfaces declared in the Program.hpp.
 #include "../include/Program.hpp"
 
-void Program::addStmt(int line, Statement *stmt)
-{
-    recorder_.add(line, stmt);
-}
+void Program::addStmt(int line, Statement *stmt) { recorder_.add(line, stmt); }
 
-void Program::removeStmt(int line)
-{
-    recorder_.remove(line);
-}
+void Program::removeStmt(int line) { recorder_.remove(line); }
 
 void Program::run()
 {
@@ -22,10 +16,7 @@ void Program::run()
     }
 }
 
-void Program::list() const
-{
-    recorder_.printLines();
-}
+void Program::list() const { recorder_.printLines(); }
 
 void Program::clear()
 {
@@ -33,27 +24,15 @@ void Program::clear()
     vars_.clear();
 }
 
-void Program::execute(Statement *stmt)
-{
-    stmt->execute(vars_, (*this));
-}
+void Program::execute(Statement *stmt) { stmt->execute(vars_, (*this)); }
 
-int Program::getPC() const noexcept
-{
-    return programCounter_;
-}
+int Program::getPC() const noexcept { return programCounter_; }
 
-void Program::changePC(int line)
-{
-    programCounter_ = line;
-}
+void Program::changePC(int line) { programCounter_ = line; }
 
-void Program::programEnd()
-{
-    programEnd_ = true;
-}
+void Program::programEnd() { programEnd_ = true; }
 
 void Program::resetAfterRun() noexcept
 {
-    //to do
+    // to do
 }

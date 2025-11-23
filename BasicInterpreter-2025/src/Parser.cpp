@@ -108,18 +108,18 @@ Statement *Parser::parseLet(TokenStream &tokens, const std::string &originLine) 
     } // 若为空或不为赋值符号，异常抛出
 
     auto expr = parseExpression(tokens);
-    // TODO: create a corresponding stmt and return it.
-    LetStatement *temp = new LetStatement(originLine,expr);
+
+    LetStatement *temp = new LetStatement(originLine, expr);
     return temp;
-}//finished
+} // finished
 
 Statement *Parser::parsePrint(TokenStream &tokens, const std::string &originLine) const
 {
-    auto expr = parseExpression(tokens);//解析表达式
-    // TODO: create a corresponding stmt and return it.
+    auto expr = parseExpression(tokens); // 解析表达式
+
     PrintStatement *temp = new PrintStatement(originLine, expr);
     return temp;
-}//finished
+} // finished
 
 Statement *Parser::parseInput(TokenStream &tokens, const std::string &originLine) const
 {
@@ -135,10 +135,10 @@ Statement *Parser::parseInput(TokenStream &tokens, const std::string &originLine
     }
 
     std::string varName = varToken->text;
-    // TODO: create a corresponding stmt and return it.
+
     InputStatement *temp = new InputStatement(originLine, varName);
     return temp;
-}//finished
+} // finished
 
 Statement *Parser::parseGoto(TokenStream &tokens, const std::string &originLine) const
 {
@@ -154,10 +154,10 @@ Statement *Parser::parseGoto(TokenStream &tokens, const std::string &originLine)
     }
 
     int targetLine = parseLiteral(lineToken);
-    // TODO: create a corresponding stmt and return it.
-    GOTOstatement *temp = new GOTOstatement(originLine,targetLine);
+
+    GOTOstatement *temp = new GOTOstatement(originLine, targetLine);
     return temp;
-}//finished
+} // finished
 
 Statement *Parser::parseIf(TokenStream &tokens, const std::string &originLine) const
 {
@@ -208,10 +208,10 @@ Statement *Parser::parseIf(TokenStream &tokens, const std::string &originLine) c
         throw BasicError("SYNTAX ERROR");
     }
 
-    int targetLine = parseLiteral(lineToken);//GOTO的目标行
+    int targetLine = parseLiteral(lineToken); // GOTO的目标行
 
-    // TODO: create a corresponding stmt and return it.
-    IfStatement *temp = new IfStatement(originLine,targetLine,leftExpr,rightExpr,op);
+
+    IfStatement *temp = new IfStatement(originLine, targetLine, leftExpr, rightExpr, op);
     return temp;
 }
 
@@ -222,14 +222,14 @@ Statement *Parser::parseRem(TokenStream &tokens, const std::string &originLine) 
     {
         throw BasicError("SYNTAX ERROR");
     }
-    // TODO: create a corresponding stmt and return it.
+
     RemStatement *temp = new RemStatement(originLine);
     return temp;
 }
 
 Statement *Parser::parseEnd(TokenStream &tokens, const std::string &originLine) const
 {
-    // TODO: create a corresponding stmt and return it.
+
     EndStatement *temp = new EndStatement(originLine);
     return temp;
 }
@@ -256,16 +256,16 @@ Expression *Parser::parseExpression(TokenStream &tokens, int precedence) const
     {
         int value = parseLiteral(token);
         left = new ConstExpression(value);
-    }//将左操作数赋值为常量
+    } // 将左操作数赋值为常量
     else if (token->type == TokenType::IDENTIFIER)
     {
         left = new VariableExpression(token->text);
-    }//将左操作数作为变量表达式并命名为token->text
+    } // 将左操作数作为变量表达式并命名为token->text
     else if (token->type == TokenType::LEFT_PAREN)
     {
-        ++leftParentCount;//左括号数加一
+        ++leftParentCount; // 左括号数加一
         left = parseExpression(tokens, 0);
-        //递归解析剩下的表达式
+        // 递归解析剩下的表达式
         if (tokens.empty() || tokens.get()->type != TokenType::RIGHT_PAREN)
         {
             throw BasicError("MISMATCHED PARENTHESIS");

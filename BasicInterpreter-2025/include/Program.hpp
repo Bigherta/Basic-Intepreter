@@ -36,7 +36,7 @@ public:
     // 强制改变 PC，用于 GOTO/IF
     void changePC(int line);
 
-    //程序结束
+    // 程序结束
     void programEnd();
 
 private:

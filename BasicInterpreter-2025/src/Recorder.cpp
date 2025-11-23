@@ -1,4 +1,4 @@
-// TODO: Imply interfaces declared in the Recorder.hpp.
+
 #include "../include/Recorder.hpp"
 #include <iostream>
 #include <utility>
@@ -32,7 +32,7 @@ void Recorder::remove(int line)
     }
 }
 
-const Statement* Recorder::get(int line) const noexcept
+const Statement *Recorder::get(int line) const noexcept
 {
     if (record.count(line))
     {
@@ -62,14 +62,14 @@ void Recorder::clear() noexcept
     max_PC = 0;
 }
 
- void Recorder::printLines() const
- {
+void Recorder::printLines() const
+{
     for (auto i = record.begin(); i != record.end(); i++)
     {
         std::string message = (i->second)->text();
         std::cout << message << '\n';
     }
- }
+}
 int Recorder::nextLine(int line) const noexcept
 {
     for (int i = line + 1; i <= max_PC; i++)

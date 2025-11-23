@@ -1,11 +1,9 @@
 #include "../include/Statement.hpp"
-
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <string>
 #include <utility>
-
 #include "../include/Lexer.hpp"
 #include "../include/Parser.hpp"
 #include "../include/Program.hpp"
@@ -15,7 +13,6 @@ Statement::Statement(std::string source) : source_(std::move(source)) {}
 
 const std::string &Statement::text() const noexcept { return source_; }
 
-// TODO: Imply interfaces declared in the Statement.hpp.
 GOTOstatement::GOTOstatement(std::string source, int targetline) : Statement(source) { gotoPC = targetline; }
 
 void GOTOstatement::execute(VarState &state, Program &program) const { program.changePC(gotoPC); }
