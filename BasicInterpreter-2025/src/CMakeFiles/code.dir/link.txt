@@ -1,1 +1,0 @@
-/usr/bin/c++  -g CMakeFiles/code.dir/Basic.cpp.o CMakeFiles/code.dir/Expression.cpp.o CMakeFiles/code.dir/Lexer.cpp.o CMakeFiles/code.dir/Parser.cpp.o CMakeFiles/code.dir/Program.cpp.o CMakeFiles/code.dir/Recorder.cpp.o CMakeFiles/code.dir/Statement.cpp.o CMakeFiles/code.dir/Token.cpp.o CMakeFiles/code.dir/VarState.cpp.o CMakeFiles/code.dir/utils/Error.cpp.o -o code 

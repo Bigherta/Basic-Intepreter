@@ -1,5 +1,0 @@
-/mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/src/CMakeFiles/code.dir
-/mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/src/CMakeFiles/attached_test.dir
-/mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/src/CMakeFiles/scope_test.dir
-/mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/src/CMakeFiles/edit_cache.dir
-/mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/src/CMakeFiles/rebuild_cache.dir
