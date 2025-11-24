@@ -42,6 +42,8 @@ public:
     // 获取当前所有变量状态
     VarState &get_vars();
 
+    //程序是否有行line
+    bool hasline(int line);
 private:
     Recorder recorder_;
     VarState vars_;

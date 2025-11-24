@@ -1,7 +1,7 @@
 // TODO: Imply interfaces declared in the Program.hpp.
 #include "../include/Program.hpp"
-
-Program::Program() :vars_(), recorder_(), programCounter_(1), programEnd_(false) { return; }
+#include <iostream>
+Program::Program() : vars_(), recorder_(), programCounter_(1), programEnd_(false) { return; }
 
 void Program::addStmt(int line, Statement *stmt) { recorder_.add(line, stmt); }
 
@@ -9,14 +9,18 @@ void Program::removeStmt(int line) { recorder_.remove(line); }
 
 void Program::run()
 {
-    int index = 0;
-    while (index != -1)
+    
+    programCounter_ = recorder_.nextLine(0);
+    while (programCounter_ != -1)
     {
-        index = recorder_.nextLine(index);
-        const Statement *executable = recorder_.get(index);
+        int pre_programcounter = programCounter_;
+        const Statement *executable = recorder_.get(programCounter_);
         executable->execute(vars_, *this);
-        delete executable;
+        if (programEnd_) break;
+        if (pre_programcounter == programCounter_)
+            programCounter_ = recorder_.nextLine(programCounter_);
     }
+    programEnd_ = false;
     resetAfterRun();
 }
 
@@ -38,4 +42,6 @@ void Program::programEnd() { programEnd_ = true; }
 
 VarState &Program::get_vars() { return vars_; }
 
-void Program::resetAfterRun() noexcept { clear(); }
+bool Program::hasline(int line) { return recorder_.hasLine(line); }
+
+void Program::resetAfterRun() noexcept { return; }

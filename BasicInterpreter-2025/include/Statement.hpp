@@ -36,6 +36,7 @@ private:
 
 public:
     PrintStatement(std::string source, Expression *expression);
+    ~PrintStatement() { delete exp; }
     void execute(VarState &state, Program &program) const override;
 };
 
@@ -46,6 +47,7 @@ private:
 
 public:
     LetStatement(std::string source, Expression *expression);
+    ~LetStatement() { delete exp; }
     void execute(VarState &state, Program &program) const override;
 };
 
@@ -81,5 +83,10 @@ private:
 
 public:
     IfStatement(std::string source, int target, Expression *l, Expression *r, char o);
+    ~IfStatement()
+    {
+        delete left;
+        delete right;
+    }
     void execute(VarState &state, Program &program) const override;
 };

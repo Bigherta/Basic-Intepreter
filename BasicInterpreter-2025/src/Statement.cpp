@@ -15,7 +15,15 @@ const std::string &Statement::text() const noexcept { return source_; }
 
 GOTOstatement::GOTOstatement(std::string source, int targetline) : Statement(source) { gotoPC = targetline; }
 
-void GOTOstatement::execute(VarState &state, Program &program) const { program.changePC(gotoPC); }
+void GOTOstatement::execute(VarState &state, Program &program) const
+{
+    if (program.hasline(gotoPC))
+        program.changePC(gotoPC);
+    else
+    {
+        std::cout << "LINE NUMBER ERROR\n";
+    }
+}
 
 PrintStatement::PrintStatement(std::string source, Expression *expression) : Statement(source) { exp = expression; }
 
@@ -27,18 +35,55 @@ void LetStatement::execute(VarState &state, Program &program) const
 {
     Lexer temp;
     TokenStream tokens = temp.tokenize(source_);
-    tokens.get();
-    state.setValue((tokens.get())->text, exp->evaluate(state));
+    TokenType firsttoken = tokens.get()->type;
+    if (firsttoken == TokenType::NUMBER)
+    {
+        TokenType secondtoken = tokens.get()->type;
+        if (secondtoken == TokenType::LET)
+        {
+            TokenType thirdtoken = tokens.peek()->type;
+            if (thirdtoken == TokenType::IDENTIFIER)
+            {
+                state.setValue(tokens.get()->text, exp->evaluate(state));
+            }
+        }
+    }
+    else if (firsttoken == TokenType::LET)
+    {
+        TokenType secondtoken = tokens.peek()->type;
+        if (secondtoken == TokenType::IDENTIFIER)
+        {
+            state.setValue(tokens.get()->text, exp->evaluate(state));
+        }
+    }
 }
 
 InputStatement::InputStatement(std::string source, std::string name) : Statement(source) { var_name = name; }
 
 void InputStatement::execute(VarState &state, Program &program) const
 {
-    int x;
-    std::cout << "?";
-    std::cin >> x;
-    state.setValue(var_name, x);
+    std::string x;
+    while (std::getline(std::cin, x))
+    {
+        std::cout << " ? ";
+        bool Isnumber = true;
+        for (int i = 0; i < x.size(); i++)
+        {
+            if (i == 0 && x[i] == '-') continue;
+            if (x[i] < '0' || x[i] > '9' )
+            {
+                Isnumber = false;
+                std::cout << "INVALID NUMBER\n";
+                break;
+            }
+        }
+        if (Isnumber)
+        {
+            int value = std::stoi(x);
+            state.setValue(var_name, value);
+            break;
+        }
+    }
 }
 
 RemStatement::RemStatement(std::string source) : Statement(source) { return; }
@@ -50,7 +95,7 @@ EndStatement::EndStatement(std::string source) : Statement(source) { return; }
 void EndStatement::execute(VarState &state, Program &program) const
 {
     state.clear();
-    program.clear();
+    program.programEnd();
 }
 
 IfStatement::IfStatement(std::string source, int targetline, Expression *l, Expression *r, char o) :

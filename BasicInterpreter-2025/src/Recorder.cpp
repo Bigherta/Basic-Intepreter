@@ -21,6 +21,7 @@ void Recorder::add(int line, Statement *stmt)
     {
         record.emplace(line, stmt);
     }
+    
     max_PC = std::max(max_PC, line);
 }
 
