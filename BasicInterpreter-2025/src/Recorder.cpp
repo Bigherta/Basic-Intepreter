@@ -14,6 +14,7 @@ void Recorder::add(int line, Statement *stmt)
 {
     if (record.count(line))
     {
+        delete record[line];
         record[line] = stmt;
     }
     else
@@ -66,6 +67,11 @@ bool Recorder::hasLine(int line) const noexcept
 
 void Recorder::clear() noexcept
 {
+    for (auto i = record.begin(); i != record.end(); i++)
+    {
+        delete i->second;
+        i->second = nullptr;
+    }
     record.clear();
     max_PC = 0;
 }
@@ -74,8 +80,11 @@ void Recorder::printLines() const
 {
     for (auto i = record.begin(); i != record.end(); i++)
     {
-        std::string message = (i->second)->text();
-        std::cout << message << '\n';
+        if (i->second != nullptr)
+        {
+            std::string message = (i->second)->text();
+            std::cout << message << '\n';
+        }
     }
 }
 int Recorder::nextLine(int line) const noexcept

@@ -56,7 +56,6 @@ int main()
                     {
                         Statement *stmt = Aline.fetchStatement();
                         program.addStmt(Aline.getLine().value(), stmt);
-                        delete stmt;
                     }
                     else
                     {
