@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025
+CMAKE_SOURCE_DIR = /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/build
+CMAKE_BINARY_DIR = /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/build/CMakeFiles /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/CMakeFiles /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/BasicInterpreter-2025/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/f/程序设计/大一上/大作业/BasicInterpreter-2025-main/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

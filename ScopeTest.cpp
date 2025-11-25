@@ -11,7 +11,7 @@ using namespace std;
 
 const string traceFolder = "../test/scoped/";
 const string defaultStudentBasic = "./code";
-const string defaultStanderBasic = "../Bonus-Demo-64bit";
+const string defaultStanderBasic = "./Bonus-Demo-64bit";
 
 const int traceCount = 16;
 const string traces[traceCount] = {"scoped01.in", "scoped02.in", "scoped03.in", "scoped04.in",
